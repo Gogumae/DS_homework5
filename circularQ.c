@@ -98,9 +98,9 @@ element getElement()
 /* complete the function */
 int isEmpty(QueueType *cQ)
 {
-	if (cQ->front == cQ->rear){
+	if (cQ->front == cQ->rear){   //front와 rear가 같으면 Queue가 비어있다는 뜻
 		printf("Circular Queue is empty!");
-		return 1;
+		return 1;  //1을 리턴해서 deQueue 함수의 if문의 코드를 실행시킨다
 	}
     return 0;
 }
@@ -108,9 +108,9 @@ int isEmpty(QueueType *cQ)
 /* complete the function */
 int isFull(QueueType *cQ)
 {
-    if (((cQ->rear+1)%MAX_QUEUE_SIZE) == cQ->front) {
-	printf(" Circular Queue is full!");
-	return 1;
+    if (((cQ->rear+1)%MAX_QUEUE_SIZE) == cQ->front) {  //rear의 다음 칸이 front와 같으면 Queue가 꽉 차있다는 뜻
+	printf("Circular Queue is full!");
+	return 1;  //1을 리턴해서 enQueue 함수의 if문의 코드를 실행시킨다
 	}
    return 0;
 }
@@ -119,25 +119,24 @@ int isFull(QueueType *cQ)
 /* complete the function */
 void enQueue(QueueType *cQ, element item)
 {
-	if(isFull(cQ)) {
+	if(isFull(cQ)) {  //Queue가 꽉 차있으면 새로 넣을 수 없다
         return;
     }
 	else {
-		cQ->rear = (cQ->rear + 1) % MAX_QUEUE_SIZE;
-		cQ->queue[cQ->rear] = item;
-}
+		cQ->rear = (cQ->rear + 1) % MAX_QUEUE_SIZE;  //rear를 1칸 이동시킨다. rear의 범위는 0부터 3이기 때문에, rear에 1을 더해 4가 되면 0으로 만들기 위해 %연산을 한다
+		cQ->queue[cQ->rear] = item;  //rear의 칸에 입력한 item을 넣는다
+	}
 }
 
 /* complete the function */
 void deQueue(QueueType *cQ, element *item)
 {
-	if(isEmpty(cQ)) {
+	if(isEmpty(cQ)) {  //Queue가 비어있으면 내용을 뺄 수 없다
         return;
     }
 	else {
-		cQ->front = (cQ->front + 1)%MAX_QUEUE_SIZE;
-		*item = cQ->queue[cQ->front];
-		return;
+		cQ->front = (cQ->front + 1)%MAX_QUEUE_SIZE;  //front를 1칸 이동시킨다. rear와 마찬가지로 %연산을 통해 범위 안에서 움직이게 한다
+		*item = cQ->queue[cQ->front]; //item이 있던 주소에 front칸에 있던 내용을 넣는다
 	}
 }
 
